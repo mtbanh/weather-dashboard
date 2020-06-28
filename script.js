@@ -101,20 +101,64 @@ $(document).ready(function () {
         $.ajax({
             url: queryURLForecast,
             method: "GET"
-        }).then(function(response) {
+        }).then(function (response) {
             console.log(response)
             //each forecast should display date, weather icon, temp and humidity
-            var date0 = moment().add(1, 'days').format('M/D/YYYY');
-            $("#date-0").text(date0)
-            var date1 = moment().add(2, 'days').format('M/D/YYYY');
-            $("#date-1").text(date1)
-            var date2 = moment().add(3, 'days').format('M/D/YYYY');
-            $("#date-2").text(date2)
-            var date3 = moment().add(4, 'days').format('M/D/YYYY');
-            $("#date-3").text(date3)
-            var date4 = moment().add(5, 'days').format('M/D/YYYY');
-            $("#date-4").text(date4)
+            function generateDates() {
+
+                // var date = {};
+
+                for (var i = 0; i < 5; i++) {
+                    var date = moment().add(i + 1, 'days').format('M/D/YYYY');
+                    $("#date-" + i.toString()).text(date);
+                }
+            };
+            generateDates();
+            // var date0 = moment().add(1, 'days').format('M/D/YYYY');
+            // $("#date-0").text(date0)
+            // var date1 = moment().add(2, 'days').format('M/D/YYYY');
+            // $("#date-1").text(date1)
+            // var date2 = moment().add(3, 'days').format('M/D/YYYY');
+            // $("#date-2").text(date2)
+            // var date3 = moment().add(4, 'days').format('M/D/YYYY');
+            // $("#date-3").text(date3)
+            // var date4 = moment().add(5, 'days').format('M/D/YYYY');
+            // $("#date-4").text(date4)
             // console.log(date0)
+
+            // console.log(response.list[0].main.temp)
+
+
+
+            function Forecast() {
+                // var tempForecastArr = [];
+
+                for (var i = 0; i < 5; i++) {
+                    var forecastTempF = (response.list[i].main.temp - 273.15) * 1.80 + 32;
+                    var forecastTempFRounded = forecastTempF.toFixed(0);
+                    forecastHumidity = response.list[i].main.humidity;
+                    // tempForecastArr.push(forecastTempFRounded);
+                    $("#weather-icon-" + i.toString()).html("<div>" + "Temp: " + forecastTempFRounded + "F" + "</div>");
+                    $("#weather-icon-" + i.toString()).append("<div>" + "Humidity: " + forecastHumidity + "%" + "</div>");
+
+                };
+
+                // console.log(tempForecastArr)
+
+                // appendTemp()
+            };
+
+            Forecast();
+
+            // function appendTemp() {
+            //     console.log(tempForecastArr);
+            //     for (var i = 0; i < 5; i++) {
+            //         $("#weather-icon").html("<div>" + tempForecastArr[i] + "</div>")
+            //     }
+            // }
+
+
+
 
         })
     });
