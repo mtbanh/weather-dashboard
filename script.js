@@ -35,7 +35,7 @@ $(document).ready(function () {
         for (var i = 0; i < cityArr.length; i++) {
 
             // var pastCityDiv = $("<li>" + cityArr[i] + "</li>");
-            $("#saved-city-searches").append($("<li>" + cityArr[i] + "</li>"));
+            $("#saved-city-searches").append($("<button class='button is-fullwidth'>" + cityArr[i] + "</button>"));
         };
     };
 
@@ -50,16 +50,17 @@ $(document).ready(function () {
     };
 
 
+
     $("#searchBtn").on("click", function (event) {
         event.preventDefault();
         var city = $("#citySearch").val();
 
         console.log(city);
         cityArr.push(city);
-        var currentCityDiv = $("<li>" + city + "</li>");
+        var currentCityDiv = $("<button class='button is-fullwidth'>" + city + "</button>");
         $("#saved-city-searches").append(currentCityDiv);
         localStorage.setItem("search-history", JSON.stringify(cityArr));
-        
+
 
         var apiKey = "0f2310ac3dd2c4522c898be88e5c7e4e"
 
@@ -78,7 +79,7 @@ $(document).ready(function () {
             //div = temperature F
             console.log(response.main.temp);
             var tempF = (response.main.temp - 273.15) * 1.80 + 32;
-            var tempFRounded = tempF.toFixed(0);
+            var tempFRounded = tempF.toFixed(1);
             $("#temperature").text("Temperature: " + tempFRounded + "F");
             //div = humidity
             var humidity = response.main.humidity;
