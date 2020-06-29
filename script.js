@@ -70,17 +70,24 @@ $(document).ready(function () {
 
         var queryURLCurrentWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
 
+
         $.ajax({
             url: queryURLCurrentWeather,
             method: "GET"
         }).then(function (response) {
             console.log(response);
             //h1 - city name, current date and a weather icon
-            console.log(response.name);
+            // console.log(response.name);
             //TODO: figure out how to add the weather icon
+            var iconCode = response.weather[0].icon;
+            var iconUrl = " http://openweathermap.org/img/wn/"+ iconCode + "@2x.png"
+
+            // console.log(iconCode)
+            // var weatherIcon = $("<img>").attr('src', iconUrl);
             // console.log(response.weather)
             // console.log(response.weather[0].icon)
             $("#location-name").text(response.name + " " + "(" + date + ")");
+            $("#location-name").append($("<img>").attr('src', iconUrl))
             //div = temperature F
             console.log(response.main.temp);
             var tempF = (response.main.temp - 273.15) * 1.80 + 32;
@@ -114,20 +121,6 @@ $(document).ready(function () {
                 }
             };
             generateDates();
-            // var date0 = moment().add(1, 'days').format('M/D/YYYY');
-            // $("#date-0").text(date0)
-            // var date1 = moment().add(2, 'days').format('M/D/YYYY');
-            // $("#date-1").text(date1)
-            // var date2 = moment().add(3, 'days').format('M/D/YYYY');
-            // $("#date-2").text(date2)
-            // var date3 = moment().add(4, 'days').format('M/D/YYYY');
-            // $("#date-3").text(date3)
-            // var date4 = moment().add(5, 'days').format('M/D/YYYY');
-            // $("#date-4").text(date4)
-            // console.log(date0)
-
-            // console.log(response.list[0].main.temp)
-
 
 
             function Forecast() {
@@ -137,25 +130,17 @@ $(document).ready(function () {
                     var forecastTempF = (response.list[i].main.temp - 273.15) * 1.80 + 32;
                     var forecastTempFRounded = forecastTempF.toFixed(0);
                     forecastHumidity = response.list[i].main.humidity;
+                    var iconCodeForecast = response.list[i].weather[0].icon;
+                    var iconUrlForecast = " http://openweathermap.org/img/wn/"+ iconCodeForecast + "@2x.png"
                     // tempForecastArr.push(forecastTempFRounded);
+                    $("#date-" + i.toString()).append($("<img>").attr('src', iconUrlForecast));
                     $("#weather-icon-" + i.toString()).html("<div>" + "Temp: " + forecastTempFRounded + "F" + "</div>");
                     $("#weather-icon-" + i.toString()).append("<div>" + "Humidity: " + forecastHumidity + "%" + "</div>");
 
                 };
-
-                // console.log(tempForecastArr)
-
-                // appendTemp()
             };
 
             Forecast();
-
-            // function appendTemp() {
-            //     console.log(tempForecastArr);
-            //     for (var i = 0; i < 5; i++) {
-            //         $("#weather-icon").html("<div>" + tempForecastArr[i] + "</div>")
-            //     }
-            // }
 
 
 
