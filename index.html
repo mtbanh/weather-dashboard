@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hello Bulma!</title>
+  <title>Weather Forecast</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -21,7 +21,7 @@
   <div class="tile is-ancestor">
     <div class="tile is-parent is-vertical">
       <div class="tile is-child box">
-        <h3>Search for a City</h3>
+        <h3 class="title is-3">Search for a City</h3>
         <div class="field has-addons">
           <p class="control is-expanded">
             <input class="input" type="text" placeholder="Find a city" id="citySearch">
@@ -43,11 +43,11 @@
     <div class="tile is-8 is-vertical is-parent">
       <div class="tile is-child box">
         <div class="content">
-          <h1 id="location-name">Name</h1>
-          <div id="temperature">Temp</div>
-          <div id="humidity">Humidity</div>
-          <div id="wind-speed">Wind speed</div>
-          <div id="uv-index">UV Index: <span class="uv-index"></span></div>
+          <h1 id="location-name">Location</h1>
+          <div id="temperature"></div>
+          <div id="humidity"></div>
+          <div id="wind-speed"></div>
+          <div id="uv-index"><span id="index-num"></span></div>
         </div>
       </div>
       <div class="tile is-child box">
@@ -55,8 +55,8 @@
           <h1 id="5 day forecast">5 day forecast</h1>
           <div class="tile is-ancestor">
             <div class="tile is-parent">
-              <div class="tile is-child box">
-                <div class="content">
+              <div class="tile is-child box has-background-link">
+                <div class="content has-text-white">
                   <h2 id="date-0"></h2>
                   <!-- <div id="icon-0"></div> -->
                    <div id="weather-icon-0"></div>
@@ -64,8 +64,8 @@
               </div>
             </div>
             <div class="tile is-parent">
-              <div class="tile is-child box">
-                <div class="content">
+              <div class="tile is-child box has-background-link">
+                <div class="content has-text-white">
                   <h2 id="date-1"></h2>
                   <div id="icon-1"></div>
                    <div id="weather-icon-1"></div>
@@ -73,8 +73,8 @@
               </div>
             </div>
             <div class="tile is-parent">
-              <div class="tile is-child box">
-                <div class="content">
+              <div class="tile is-child box has-background-link">
+                <div class="content has-text-white">
                   <h2 id="date-2"></h2>
                   <div id="icon-2"></div>
                    <div id="weather-icon-2"></div>
@@ -82,8 +82,8 @@
               </div>
             </div>
             <div class="tile is-parent">
-              <div class="tile is-child box">
-                <div class="content">
+              <div class="tile is-child box has-background-link">
+                <div class="content has-text-white">
                   <h2 id="date-3"></h2>
                   <div id="icon-3"></div>
                    <div id="weather-icon-3"></div>
@@ -91,8 +91,8 @@
               </div>
             </div>
             <div class="tile is-parent">
-              <div class="tile is-child box">
-                <div class="content">
+              <div class="tile is-child box has-background-link">
+                <div class="content has-text-white">
                   <h2 id="date-4"></h2>
                   <div id="icon-4"></div>
                    <div id="weather-icon-4"></div>

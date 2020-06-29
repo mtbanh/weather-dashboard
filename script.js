@@ -1,26 +1,6 @@
 //TODO
 
-//1. page layout/content
-//element that will float left and contain the search input; unordered list of previous searches
-//two elements that will float right and on top of each other 
-//1. current weather of the selected city 
-//h1 - city name, current date and a weather icon
-//div = temperature F
-//div = humidity
-//div = wind speed
-//div = UV index which also has colors to indicate levels
-//2. 5 day weather forecast; within in div there has to be:
-//date
-//weather icon
-//temp in F
-//humidity
-// day +1 
-//day + 2
-//day +3
-//day +4
-//day +5
-
-//2. script
+//retrieving information and displaying it when user click on their past searches
 
 $(document).ready(function () {
 
@@ -101,10 +81,13 @@ $(document).ready(function () {
                 // console.log(response)
                 var index = response.value;
                 // console.log(index)
-                $(".uv-index").text(index)
+                $("#uv-index").text("UV index: ");
+                //TODO: how to put index value into the span element
+                $("#index-num").append(index)
+               
 
                 function color() {
-
+                    //TODO: not working
                     console.log(index)
                     if (index < 2) {
                         $(".uv-index").addClass("uv-low");
