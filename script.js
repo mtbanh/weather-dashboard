@@ -89,8 +89,6 @@ $(document).ready(function () {
                 color()
 
                 function color() {
-                    //TODO: not working
-                    console.log(index)
                     if (index <= 2) {
                         $("#index-num").removeClass();
                         $("#index-num").addClass("uv-low");
