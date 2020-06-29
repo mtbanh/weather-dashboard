@@ -15,7 +15,7 @@ $(document).ready(function () {
         for (var i = 0; i < cityArr.length; i++) {
 
             // var pastCityDiv = $("<li>" + cityArr[i] + "</li>");
-            $("#saved-city-searches").append($("<button class='button is-fullwidth'>" + cityArr[i] + "</button>"));
+            $("#saved-city-searches").append($("<button class='button saved-city is-fullwidth'>" + cityArr[i] + "</button>"));
         };
     };
 
@@ -29,18 +29,13 @@ $(document).ready(function () {
         renderSavedCity()
     };
 
+    $(".saved-city").on("click", function (event) {
+        var city = $(this).text();
+        fetchAndRenderSavedCity(city);
+    });
 
-
-    $("#searchBtn").on("click", function (event) {
-        event.preventDefault();
-        var city = $("#citySearch").val();
-
+    function fetchAndRenderSavedCity(city) {
         console.log(city);
-        cityArr.push(city);
-        var currentCityDiv = $("<button class='button is-fullwidth'>" + city + "</button>");
-        $("#saved-city-searches").append(currentCityDiv);
-        localStorage.setItem("search-history", JSON.stringify(cityArr));
-
 
         var apiKey = "0f2310ac3dd2c4522c898be88e5c7e4e"
 
@@ -88,22 +83,28 @@ $(document).ready(function () {
                 // console.log(index)
                 // $("#uv-index").text("UV index: ");
                 //TODO: how to put index value into the span element
+                $("#index-num").empty();
                 $("#index-num").append(index)
-               
+
                 color()
 
                 function color() {
                     //TODO: not working
                     console.log(index)
-                    if (index < 2) {
+                    if (index <= 2) {
+                        $("#index-num").removeClass();
                         $("#index-num").addClass("uv-low");
-                    } else if (2 < index < 5) {
+                    } else if (2 <= index && index <= 5) {
+                        $("#index-num").removeClass();
                         $("#index-num").addClass("uv-moderate");
-                    } else if (6 < index < 7) {
+                    } else if (6 <= index && index <= 7) {
+                        $("#index-num").removeClass();
                         $("#index-num").addClass("uv-high");
-                    } else if (8 < index < 10) {
+                    } else if (8 <= index && index <= 10) {
+                        $("#index-num").removeClass();
                         $("#index-num").addClass("uv-very-high");
                     } else {
+                        $("#index-num").removeClass();
                         $("#index-num").addClass("uv-extreme");
                     };
                 };
@@ -156,8 +157,27 @@ $(document).ready(function () {
 
 
 
-        })
+        });
+    };
+
+
+    $("#searchBtn").on("click", function (event) {
+        event.preventDefault();
+        var city = $("#citySearch").val();
+
+        if (!cityArr.includes(city)) {
+            cityArr.push(city);
+            var currentCityDiv = $("<button class='button is-fullwidth'>" + city + "</button>");
+            $("#saved-city-searches").append(currentCityDiv);
+            localStorage.setItem("search-history", JSON.stringify(cityArr));
+        };
+
+        fetchAndRenderSavedCity(city);
+
+        //conditional statement that if city is already in array, don't create new but
+
+
+
+
     });
-
-
-})
+});
