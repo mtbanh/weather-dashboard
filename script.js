@@ -28,7 +28,27 @@ $(document).ready(function () {
     // var city = $("#citySearch").val();
 
     var date = moment().format('MM/D/YYYY')
-    // console.log(date)
+
+    init()
+
+    function renderSavedCity() {
+        for (var i = 0; i < cityArr.length; i++) {
+
+            // var pastCityDiv = $("<li>" + cityArr[i] + "</li>");
+            $("#saved-city-searches").append($("<li>" + cityArr[i] + "</li>"));
+        };
+    };
+
+    function init() {
+        var savedCity = JSON.parse(localStorage.getItem("search-history"));
+        console.log(savedCity);
+        if (savedCity !== null) {
+            cityArr = savedCity;
+        }
+
+        renderSavedCity()
+    };
+
 
     $("#searchBtn").on("click", function (event) {
         event.preventDefault();
@@ -39,32 +59,7 @@ $(document).ready(function () {
         var currentCityDiv = $("<li>" + city + "</li>");
         $("#saved-city-searches").append(currentCityDiv);
         localStorage.setItem("search-history", JSON.stringify(cityArr));
-
-
-        // savedCity();
-
-        // function savedCity() {
-        //     var savedCityArr = JSON.parse(localStorage.getItem("search-history"));
-        //     if (savedCityArr !== null){
-        //         cityArr = savedCityArr;
-        //     };
-
-        //     renderSavedCity();
-
-        // };
-
-        //     function renderSavedCity(){
-        //     // console.log(savedCityArr)
-        //         for (var i = 0; i < cityArr.length; i++) {
-
-        //             var pastCityDiv = $("<li>" + cityArr[i] + "</li>");
-
-        //             $("#save-city-searches").append(pastCityDiv);
-        //          };
-        //     };
-
-
-        //TODO-styling: need to fix styling of the populated pastCityDiv
+        
 
         var apiKey = "0f2310ac3dd2c4522c898be88e5c7e4e"
 
@@ -77,7 +72,7 @@ $(document).ready(function () {
             console.log(response);
 
             var iconCode = response.weather[0].icon;
-            var iconUrl = " http://openweathermap.org/img/wn/"+ iconCode + "@2x.png"
+            var iconUrl = " http://openweathermap.org/img/wn/" + iconCode + "@2x.png"
             $("#location-name").text(response.name + " " + "(" + date + ")");
             $("#location-name").append($("<img>").attr('src', iconUrl))
             //div = temperature F
@@ -101,16 +96,34 @@ $(document).ready(function () {
             $.ajax({
                 url: queryURLUvIndex,
                 method: "GET"
-            }).then (function(response){
+            }).then(function (response) {
                 // console.log(response)
                 var index = response.value;
                 // console.log(index)
-                $("#uv-index").text("UV Index: " + index)
+                $(".uv-index").text(index)
+
+                function color() {
+
+                    console.log(index)
+                    if (index < 2) {
+                        $(".uv-index").addClass("uv-low");
+                    } else if (2 < index < 5) {
+                        $(".uv-index").addClass("uv-moderate");
+                    } else if (6 < index < 7) {
+                        $(".uv-index").addClass("uv-high");
+                    } else if (8 < index < 10) {
+                        $(".uv-index").addClass("uv-very-high");
+                    } else {
+                        $(".uv-index").addClass("uv-extreme");
+                    };
+                };
+
+                color()
 
 
             })
         });
-        
+
 
         //five day forecast
         var queryURLForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey;
@@ -140,7 +153,7 @@ $(document).ready(function () {
                     var forecastTempFRounded = forecastTempF.toFixed(0);
                     forecastHumidity = response.list[i].main.humidity;
                     var iconCodeForecast = response.list[i].weather[0].icon;
-                    var iconUrlForecast = " http://openweathermap.org/img/wn/"+ iconCodeForecast + "@2x.png"
+                    var iconUrlForecast = " http://openweathermap.org/img/wn/" + iconCodeForecast + "@2x.png"
                     // tempForecastArr.push(forecastTempFRounded);
                     $("#date-" + i.toString()).append($("<img>").attr('src', iconUrlForecast));
                     $("#weather-icon-" + i.toString()).html("<div>" + "Temp: " + forecastTempFRounded + "F" + "</div>");
@@ -156,5 +169,6 @@ $(document).ready(function () {
 
         })
     });
+
 
 })
