@@ -22,24 +22,19 @@ Below are the prerequisite understanding and programs that were utilized :
 The code snippet below store the user's input into local storage upon clicking save for later retrieval.
 ```js
 {
-    $("#saveBtn10").on("click", function(event){
-    event.preventDefault();
-    var userInput = $("#user-input-10").val()
-    console.log(userInput)
-    localStorage.setItem("user-input-10", JSON.stringify(userInput));
-});
+  
 
 }
 ```
 ## Demo
 
 
-![Deployed Application](deployed-site.gif)
+![Deployed Application]()
 ---
 
 ## Deployed link
 
-[Live site](https://mtbanh.github.io/05-day-planner/)
+[Live site](https://mtbanh.github.io/weather-dashboard/)
 ---
 
 ## Author
@@ -51,4 +46,4 @@ The code snippet below store the user's input into local storage upon clicking s
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## Acknowledgments
-Thank you to Joel, Isaias, Colin, and Ayla for helping out! 
+ 
