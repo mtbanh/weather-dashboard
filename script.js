@@ -53,21 +53,26 @@ $(document).ready(function () {
             console.log(response);
 
             var iconCode = response.weather[0].icon;
-            var iconUrl = " http://openweathermap.org/img/wn/" + iconCode + "@2x.png"
+            var iconUrl = " http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+
             $("#location-name").text(response.name + " " + "(" + date + ")");
-            $("#location-name").append($("<img>").attr('src', iconUrl))
+            $("#location-name").append($("<img>").attr('src', iconUrl));
+
             //div = temperature F
             console.log(response.main.temp);
             var tempF = (response.main.temp - 273.15) * 1.80 + 32;
             var tempFRounded = tempF.toFixed(1);
             $("#temperature").text("Temperature: " + tempFRounded + "F");
+
             //div = humidity
             var humidity = response.main.humidity;
             $("#humidity").text("Humidity: " + humidity + "%");
+
             //div = wind speed
             var windSpeed = response.wind.speed;
             console.log(windSpeed)
             $("#wind-speed").text("Wind speed: " + windSpeed + "MPH");
+
             //div = UV index which also has colors to indicate levels
             // console.log(response.coord)
             var longitude = response.coord.lon;
@@ -81,28 +86,28 @@ $(document).ready(function () {
                 // console.log(response)
                 var index = response.value;
                 // console.log(index)
-                $("#uv-index").text("UV index: ");
+                // $("#uv-index").text("UV index: ");
                 //TODO: how to put index value into the span element
                 $("#index-num").append(index)
                
+                color()
 
                 function color() {
                     //TODO: not working
                     console.log(index)
                     if (index < 2) {
-                        $(".uv-index").addClass("uv-low");
+                        $("#index-num").addClass("uv-low");
                     } else if (2 < index < 5) {
-                        $(".uv-index").addClass("uv-moderate");
+                        $("#index-num").addClass("uv-moderate");
                     } else if (6 < index < 7) {
-                        $(".uv-index").addClass("uv-high");
+                        $("#index-num").addClass("uv-high");
                     } else if (8 < index < 10) {
-                        $(".uv-index").addClass("uv-very-high");
+                        $("#index-num").addClass("uv-very-high");
                     } else {
-                        $(".uv-index").addClass("uv-extreme");
+                        $("#index-num").addClass("uv-extreme");
                     };
                 };
 
-                color()
 
 
             })
