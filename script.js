@@ -68,24 +68,16 @@ $(document).ready(function () {
 
         var apiKey = "0f2310ac3dd2c4522c898be88e5c7e4e"
 
+        //current weather
         var queryURLCurrentWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
-
-
         $.ajax({
             url: queryURLCurrentWeather,
             method: "GET"
         }).then(function (response) {
             console.log(response);
-            //h1 - city name, current date and a weather icon
-            // console.log(response.name);
-            //TODO: figure out how to add the weather icon
+
             var iconCode = response.weather[0].icon;
             var iconUrl = " http://openweathermap.org/img/wn/"+ iconCode + "@2x.png"
-
-            // console.log(iconCode)
-            // var weatherIcon = $("<img>").attr('src', iconUrl);
-            // console.log(response.weather)
-            // console.log(response.weather[0].icon)
             $("#location-name").text(response.name + " " + "(" + date + ")");
             $("#location-name").append($("<img>").attr('src', iconUrl))
             //div = temperature F
@@ -101,9 +93,26 @@ $(document).ready(function () {
             console.log(windSpeed)
             $("#wind-speed").text("Wind speed: " + windSpeed + "MPH");
             //div = UV index which also has colors to indicate levels
-            $("#uv-index").text()
-        });
+            // console.log(response.coord)
+            var longitude = response.coord.lon;
+            var latitude = response.coord.lat;
+            var queryURLUvIndex = "http://api.openweathermap.org/data/2.5/uvi?appid=" + apiKey + "&lat=" + latitude + "&lon=" + longitude;
 
+            $.ajax({
+                url: queryURLUvIndex,
+                method: "GET"
+            }).then (function(response){
+                // console.log(response)
+                var index = response.value;
+                // console.log(index)
+                $("#uv-index").text("UV Index: " + index)
+
+
+            })
+        });
+        
+
+        //five day forecast
         var queryURLForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey;
         $.ajax({
             url: queryURLForecast,
